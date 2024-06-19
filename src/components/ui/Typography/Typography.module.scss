@@ -1,55 +1,41 @@
+@import '~/static/styles/mixins';
+
 .h1 {
-  font-family: 'Cormorant SC', var(--font-family-common);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19.38px;
+  @include typography-h1;
 }
 
 .h2 {
-  font-family: 'Cormorant SC', var(--font-family-common);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14.53px;
+  @include typography-h2;
 }
 
 .paragraph-big-light {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 22.4px;
+  @include typography-paragraph-big-light;
 }
 
 .paragraph-big-medium {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22.4px;
+  @include typography-paragraph-big-medium;
 }
 
 .paragraph-base-light {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 19.6px;
+  @include typography-paragraph-base-light;
 }
 
 .paragraph-small-light {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 16.8px;
+  @include typography-paragraph-small-light;
 }
 
 .caption-base-bold {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14.52px;
+  @include typography-caption-base-bold;
 }
 
 .caption-small-bold {
-  font-family: Inter, var(--font-family-common);
-  font-weight: 700;
-  font-size: 8px;
-  line-height: 9.68px;
+  @include typography-caption-small-bold;
+}
+
+.primary {
+  color: var(--color-text-primary);
+}
+
+.secondary {
+  color: var(--color-text-secondary);
 }

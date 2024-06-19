@@ -6,6 +6,7 @@ export * from './ErrorIcon';
 export * from './ExpandIcon';
 export * from './FilterIcon';
 export * from './LightIcon';
+export * from './LogoIcon';
 export * from './MinusIcon';
 export * from './PlusIcon';
 export * from './SearchIcon';

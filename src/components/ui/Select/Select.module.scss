@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+}
+
+.expand-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-placeholder);
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-background-secondary);
+  max-height: 220px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  border-radius: 0 0 4px 4px;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--color-scrollbar-thumb);
+  }
+}
+
+.list-item {
+  width: 100%;
+  color: var(--color-text-secondary);
+  padding: 8px 16px;
+  cursor: default;
+
+  &:hover,
+  &:focus-visible,
+  &.active,
+  &.selected {
+    background-color: rgba(205 205 205 / 5%);
+  }
+}
+
+.list-empty-message {
+  width: 264px;
+  padding: 8px 16px;
+  color: var(--color-placeholder);
+}
