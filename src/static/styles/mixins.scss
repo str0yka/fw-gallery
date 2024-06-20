@@ -3,6 +3,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 19.38px;
+  text-transform: uppercase;
 }
 
 @mixin typography-h2 {
@@ -10,6 +11,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 14.53px;
+  text-transform: uppercase;
 }
 
 @mixin typography-paragraph-big-light {

@@ -4,7 +4,7 @@ import { useOnClickOutside } from '~/utils/hooks';
 
 interface UseSelectParams {
   options: Option[];
-  value?: Option['value'];
+  value?: Option['value'] | null;
   onSelect?: (value: Option['value']) => void;
   filter?: (option: Option, value: string) => boolean;
 }
@@ -41,22 +41,12 @@ export const useSelect = ({
     setOpen(true);
   };
 
-  const onClose = (option?: Option) => {
+  const onClose = () => {
     setOpen(false);
-
-    const selectedOption = option ?? options.find((option) => option.value === value);
-
-    if (selectedOption) {
-      setInputValue(selectedOption.label);
-      setActiveOption({
-        ...selectedOption,
-        index: options.findIndex((option) => option.value === selectedOption.value),
-      });
-    }
   };
 
   const onSelectOption = (option: Option) => {
-    onClose(option);
+    onClose();
     onSelect?.(option.value);
   };
 
@@ -126,14 +116,18 @@ export const useSelect = ({
   const wrapperRef = useOnClickOutside<HTMLDivElement>(() => onClose());
 
   useEffect(() => {
+    const newActiveOption = selectedOption ?? options[0];
+    setActiveOption({
+      ...newActiveOption,
+      index: options.findIndex((option) => option.value === newActiveOption.value),
+    });
+  }, [selectedOption, open]);
+
+  useEffect(() => {
     if (!filteredOptions.length) return;
 
-    const newActiveOption = filteredOptions.find((option) => option.value === activeOption.value);
-
-    if (!newActiveOption) {
-      setActiveOption({ ...filteredOptions[0], index: 0 });
-      return;
-    }
+    const newActiveOption =
+      filteredOptions.find((option) => option.value === activeOption.value) ?? options[0];
 
     setActiveOption({
       ...newActiveOption,
@@ -144,7 +138,7 @@ export const useSelect = ({
   useLayoutEffect(() => {
     if (!listRef.current) return;
 
-    const optionHeight = listRef.current.scrollHeight / options.length;
+    const optionHeight = listRef.current.scrollHeight / filteredOptions.length;
     const optionOffsetTop = optionHeight * activeOption.index;
 
     if (optionOffsetTop < listRef.current.scrollTop) {
@@ -155,11 +149,11 @@ export const useSelect = ({
     if (optionOffsetTop > listRef.current.scrollTop + listRef.current.offsetHeight - optionHeight) {
       listRef.current.scrollTop = optionOffsetTop - listRef.current.offsetHeight + optionHeight;
     }
-  }, [listRef, options.length, activeOption.index, open]);
+  }, [listRef, filteredOptions.length, activeOption.index, open]);
 
   return {
     refs: { listRef, wrapperRef },
-    state: { inputValue, open, filteredOptions },
+    state: { selectedOption, inputValue, open, filteredOptions },
     functions: {
       onInputFocus,
       onInputChange,

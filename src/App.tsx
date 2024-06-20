@@ -2,7 +2,13 @@ import { useState } from 'react';
 
 import { Header, ReduxProvider, TanstackQueryProvider } from '~/components';
 
-import { Select } from './components/ui';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Select,
+} from './components/ui';
 
 const OPTIONS = [
   { label: 'Louvre Museum', value: 1 },
@@ -18,20 +24,37 @@ const OPTIONS = [
 ];
 
 export const App = () => {
-  const [value, setValue] = useState(1);
-
-  console.log(value);
+  const [value, setValue] = useState<null | number>(null);
 
   return (
     <TanstackQueryProvider>
       <ReduxProvider>
         <Header />
         <div style={{ marginTop: '150px', width: '336px' }}>
-          <Select
-            value={value}
-            options={OPTIONS}
-            onSelect={(value) => setValue(value)}
-          />
+          <Accordion>
+            <AccordionItem value="select">
+              <AccordionTrigger>Select</AccordionTrigger>
+              <AccordionContent>
+                <Select
+                  placeholder="Select the location"
+                  value={value}
+                  options={OPTIONS}
+                  onSelect={(value) => setValue(value as number)}
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="select2">
+              <AccordionTrigger>Select</AccordionTrigger>
+              <AccordionContent>
+                <Select
+                  placeholder="Select the location"
+                  value={value}
+                  options={OPTIONS}
+                  onSelect={(value) => setValue(value as number)}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </ReduxProvider>
     </TanstackQueryProvider>

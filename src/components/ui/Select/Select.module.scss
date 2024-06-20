@@ -12,19 +12,22 @@
   }
 }
 
-.list {
+.list-wrapper {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: var(--color-background-secondary);
+  border-radius: 0 0 4px 4px;
+}
+
+.list {
   max-height: 220px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  border-radius: 0 0 4px 4px;
 
   &::-webkit-scrollbar {
     height: 4px;
