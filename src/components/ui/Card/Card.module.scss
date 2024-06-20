@@ -10,7 +10,6 @@
 }
 
 .info {
-  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -54,13 +53,35 @@
 }
 
 .info-container {
+  padding: 8px 12px;
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - var(--button-width));
   max-width: 236px;
   height: 45px;
   background-color: var(--color-background-primary);
+
+  --button-width: 24px;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: var(--button-width);
+  height: 100%;
+  background-color: var(--color-accent);
+}
+
+.button-icon {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary-light-gray);
 }
 
 .title {
@@ -78,7 +99,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--color-accent-gold);
+  color: var(--color-accent);
 
   @include typography-caption-small-bold;
 }
@@ -89,12 +110,12 @@
   }
 
   .info-container {
+    padding: 12px;
     max-width: 300px;
     height: 66px;
   }
 
   .info {
-    padding: 12px;
     gap: 8px;
   }
 
@@ -105,6 +126,10 @@
   .description {
     @include typography-caption-base-bold;
   }
+
+  .button-icon {
+    top: 21px;
+  }
 }
 
 @media (width >= 1440px) {
@@ -113,11 +138,22 @@
   }
 
   .info-container {
+    padding: 20px;
     max-width: 300px;
     height: 82px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 2px;
+      height: calc(100% - (2 * 20px));
+      background-color: var(--color-accent);
+    }
   }
 
-  .info {
-    padding: 20px;
+  .button {
+    display: none;
   }
 }

@@ -2,6 +2,8 @@ import { forwardRef } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import clsx from 'clsx';
 
+import { ArrowIcon } from '~/components/ui/icons';
+
 import s from './Card.module.scss';
 
 interface CardProps extends React.ComponentProps<'article'> {
@@ -36,6 +38,13 @@ export const Card = forwardRef<React.ComponentRef<'article'>, CardProps>(
           <h2 className={s.title}>{artist}</h2>
           <p className={s.description}>{location}</p>
         </div>
+        <button
+          className={s.button}
+          type="button"
+          aria-label={name}
+        >
+          <ArrowIcon className={s['button-icon']} />
+        </button>
       </div>
     </article>
   ),

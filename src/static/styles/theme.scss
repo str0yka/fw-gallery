@@ -13,6 +13,7 @@
   --color-text-tertiary: var(--color-primary-light-gray);
   --color-scrollbar-thumb: var(--color-primary-light-gray);
   --color-hovered: rgba(205 205 205 / 5%);
+  --color-accent: var(--color-accent-gold);
 }
 
 .light {
@@ -30,4 +31,5 @@
   --color-text-tertiary: var(--color-primary-black);
   --color-scrollbar-thumb: var(--color-secondary-gray);
   --color-hovered: rgba(18 18 18 / 5%);
+  --color-accent: var(--color-accent-red);
 }
