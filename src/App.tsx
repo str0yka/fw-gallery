@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Header, Search } from '~/components';
+import { Container, Header, Search } from '~/components';
 import { Card, IconButton, Pagination } from '~/components/ui';
 import { FilterIcon } from '~/components/ui/icons';
 import { useGetPaintingsQuery } from '~/utils/api';
@@ -27,7 +27,7 @@ export const App = () => {
     <>
       <Header />
       <main className={s['main-container']}>
-        <div className={s.grid}>
+        <Container className={s.grid}>
           <div className={s['search-wrapper']}>
             <div className={s['search-container']}>
               <Search placeholder="Search by painting title" />
@@ -36,8 +36,8 @@ export const App = () => {
               <FilterIcon className={s['filter-icon']} />
             </IconButton>
           </div>
-        </div>
-        <div className={s.grid}>
+        </Container>
+        <Container className={s.grid}>
           {getPaintingsQuery.data?.data.map((painting) => (
             <Card
               key={painting.id}
@@ -48,7 +48,7 @@ export const App = () => {
               name={painting.name}
             />
           ))}
-        </div>
+        </Container>
         <Pagination
           className={s.pagination}
           currentPage={page}

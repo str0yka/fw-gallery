@@ -2,7 +2,7 @@ import { DarkIcon, LightIcon, LogoIcon } from '~/components/ui/icons';
 import { THEME } from '~/utils/constants';
 import { themeActions, useDispatch, useTheme } from '~/utils/store';
 
-import { Grid } from '../Grid/Grid';
+import { Container } from '../Container/Container';
 
 import s from './Header.module.scss';
 
@@ -13,24 +13,22 @@ export const Header = () => {
   const toggleTheme = () => dispatch(themeActions.toggle());
 
   return (
-    <Grid
+    <Container
       component="header"
-      className={s.wrapper}
+      className={s.container}
     >
-      <div className={s.container}>
-        <LogoIcon className={s.logo} />
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className={s['toggle-theme-button']}
-        >
-          {theme === THEME.DARK ? (
-            <DarkIcon className={s['toggle-theme-dark-icon']} />
-          ) : (
-            <LightIcon className={s['toggle-theme-light-icon']} />
-          )}
-        </button>
-      </div>
-    </Grid>
+      <LogoIcon className={s.logo} />
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className={s['toggle-theme-button']}
+      >
+        {theme === THEME.DARK ? (
+          <DarkIcon className={s['toggle-theme-dark-icon']} />
+        ) : (
+          <LightIcon className={s['toggle-theme-light-icon']} />
+        )}
+      </button>
+    </Container>
   );
 };
