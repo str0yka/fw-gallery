@@ -1,62 +1,62 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Header, ReduxProvider, TanstackQueryProvider } from '~/components';
+import { Header, Search } from '~/components';
+import { Card, IconButton, Pagination } from '~/components/ui';
+import { FilterIcon } from '~/components/ui/icons';
+import { useGetPaintingsQuery } from '~/utils/api';
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-  Select,
-} from './components/ui';
+import s from './App.module.scss';
 
-const OPTIONS = [
-  { label: 'Louvre Museum', value: 1 },
-  { label: 'Van Gogh Museum', value: 2 },
-  { label: 'State Tretyakov Gallery', value: 3 },
-  { label: 'Thyssen-Bornemisza National Museum', value: 4 },
-  { label: 'New York Historical Society Museum', value: 5 },
-  { label: 'Louvre Museum', value: 6 },
-  { label: 'Van Gogh Museum', value: 7 },
-  { label: 'State Tretyakov Gallery', value: 8 },
-  { label: 'Thyssen-Bornemisza National Museum', value: 9 },
-  { label: 'New York Historical Society Museum', value: 10 },
-];
+const LIMIT = 6;
 
 export const App = () => {
-  const [value, setValue] = useState<null | number>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const getPaintingsQuery = useGetPaintingsQuery({ params: { limit: LIMIT, page } });
+
+  const totalCountOfPaintings = Number(getPaintingsQuery.data?.headers['x-total-count']) || null;
+
+  useEffect(() => {
+    if (totalCountOfPaintings !== null) {
+      setTotalPages(Math.ceil(Number(totalCountOfPaintings) / LIMIT));
+    }
+  }, [totalCountOfPaintings]);
 
   return (
-    <TanstackQueryProvider>
-      <ReduxProvider>
-        <Header />
-        <div style={{ marginTop: '150px', width: '336px' }}>
-          <Accordion>
-            <AccordionItem value="select">
-              <AccordionTrigger>Select</AccordionTrigger>
-              <AccordionContent>
-                <Select
-                  placeholder="Select the location"
-                  value={value}
-                  options={OPTIONS}
-                  onSelect={(value) => setValue(value as number)}
-                />
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="select2">
-              <AccordionTrigger>Select</AccordionTrigger>
-              <AccordionContent>
-                <Select
-                  placeholder="Select the location"
-                  value={value}
-                  options={OPTIONS}
-                  onSelect={(value) => setValue(value as number)}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+    <>
+      <Header />
+      <main className={s['main-container']}>
+        <div className={s.grid}>
+          <div className={s['search-wrapper']}>
+            <div className={s['search-container']}>
+              <Search placeholder="Search by painting title" />
+            </div>
+            <IconButton>
+              <FilterIcon className={s['filter-icon']} />
+            </IconButton>
+          </div>
         </div>
-      </ReduxProvider>
-    </TanstackQueryProvider>
+        <div className={s.grid}>
+          {getPaintingsQuery.data?.data.map((painting) => (
+            <Card
+              key={painting.id}
+              artist={painting.author.name}
+              date={painting.created}
+              imageUrl={`${import.meta.env.VITE_API_URL}${painting.imageUrl}`}
+              location={painting.location.location}
+              name={painting.name}
+            />
+          ))}
+        </div>
+        <Pagination
+          className={s.pagination}
+          currentPage={page}
+          totalPages={totalPages}
+          sideButtons
+          onPageChange={setPage}
+        />
+      </main>
+    </>
   );
 };

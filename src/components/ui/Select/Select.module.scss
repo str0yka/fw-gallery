@@ -13,11 +13,12 @@
 }
 
 .list-wrapper {
+  z-index: 1;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--color-background-secondary);
+  background: var(--color-background-tertiary);
   border-radius: 0 0 4px 4px;
 }
 
@@ -55,7 +56,7 @@
   &:focus-visible,
   &.active,
   &.selected {
-    background-color: rgba(205 205 205 / 5%);
+    background-color: var(--color-hovered);
   }
 }
 

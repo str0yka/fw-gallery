@@ -6,3 +6,13 @@ interface Painting {
   locationId: number;
   name: string;
 }
+
+interface Author {
+  id: number;
+  name: string;
+}
+
+interface Location {
+  id: number;
+  location: string;
+}

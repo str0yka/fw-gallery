@@ -1,14 +1,5 @@
-.dark {
-  --toggle-theme-button-color: var(--color-text-secondary);
-  --toggle-theme-button-background-color: var(--color-background-secondary);
-}
-
-.light {
-  --toggle-theme-button-color: var(--color-text-primary);
-  --toggle-theme-button-background-color: var(--color-background-primary);
-}
-
 .wrapper {
+  z-index: 10;
   inset: 0 auto auto 0;
   position: fixed;
   background-color: var(--color-background-primary);
@@ -34,19 +25,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--toggle-theme-button-background-color);
+  background-color: var(--color-background-secondary);
 }
 
 .toggle-theme-light-icon {
   width: 20px;
   height: 20px;
-  color: var(--toggle-theme-button-color);
+  color: var(--color-text-tertiary);
 }
 
 .toggle-theme-dark-icon {
   width: 24px;
   height: 24px;
-  color: var(--toggle-theme-button-color);
+  color: var(--color-text-tertiary);
 }
 
 @media (width >= 768px) {

@@ -1,0 +1,61 @@
+@import '~/static/styles/mixins';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.list-item {
+  padding: 1px 8px;
+  color: var(--color-text-secondary);
+  border-bottom: 1px transparent solid;
+
+  @include typography-paragraph-big-light;
+
+  &:hover {
+    border-bottom: 1px var(--color-border-primary) solid;
+
+    @include typography-paragraph-big-medium;
+  }
+
+  &.current {
+    border-radius: 4px;
+    background-color: var(--color-background-quaternary);
+    border-bottom: 1px transparent solid;
+
+    @include typography-paragraph-big-medium;
+  }
+}
+
+.space-item {
+  padding: 1px 8px;
+  color: var(--color-text-secondary);
+
+  @include typography-paragraph-big-light;
+}
+
+.side-button {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-background-quaternary);
+  }
+
+  &.left {
+    transform: rotate(180deg);
+  }
+}

@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import { DarkIcon, LightIcon, LogoIcon } from '~/components/ui/icons';
 import { THEME } from '~/utils/constants';
 import { themeActions, useDispatch, useTheme } from '~/utils/store';
@@ -17,7 +15,7 @@ export const Header = () => {
   return (
     <Grid
       component="header"
-      className={clsx(s.wrapper, s[theme])}
+      className={s.wrapper}
     >
       <div className={s.container}>
         <LogoIcon className={s.logo} />

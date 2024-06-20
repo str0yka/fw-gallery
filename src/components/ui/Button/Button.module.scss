@@ -1,0 +1,17 @@
+@import '~/static/styles/mixins';
+
+.button {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+
+  @include typography-caption-base-bold;
+
+  &:hover,
+  &:active {
+    color: var(--color-text-primary);
+  }
+
+  &:disabled {
+    color: var(--color-disabled);
+  }
+}

@@ -24,6 +24,7 @@ export const Input = forwardRef<React.ComponentRef<'input'>, InputProps>(
           ref={ref}
           id={id}
           className={clsx(s.input, className)}
+          size={1}
           {...props}
         />
         {endAdornment}

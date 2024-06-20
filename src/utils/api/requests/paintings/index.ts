@@ -1,4 +1,5 @@
 import { api } from '~/utils/api/instance';
+import { SEARCH_PARAMS } from '~/utils/constants';
 import { toURLSearchParams } from '~/utils/helpers';
 
 export interface GetPaintingsParams {
@@ -11,7 +12,7 @@ export interface GetPaintingsParams {
 
 export type GetPaintingsRequestConfig = Partial<RequestConfig<GetPaintingsParams>>;
 
-export type GetPaintingsResponse = Painting[];
+export type GetPaintingsResponse = (Painting & { location: Location; author: Author })[];
 
 export const GET_PAINTINGS_SEARCH_PARAMS = {
   ID: 'id',
@@ -29,6 +30,8 @@ export const getPaintings = ({ params, config }: GetPaintingsRequestConfig = {})
     [GET_PAINTINGS_SEARCH_PARAMS.AUTHOR_ID]: params?.authorId,
     [GET_PAINTINGS_SEARCH_PARAMS.LIMIT]: params?.limit,
   });
+  searchParams.append(SEARCH_PARAMS.EXPAND, 'location');
+  searchParams.append(SEARCH_PARAMS.EXPAND, 'author');
 
   return api.get<GetPaintingsResponse>(`/paintings?${searchParams.toString()}`, config);
 };
