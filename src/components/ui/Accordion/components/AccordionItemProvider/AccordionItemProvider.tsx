@@ -1,18 +1,17 @@
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import type { AccordionItemState } from '../../context';
 import { AccordionItemContext } from '../../context';
 import { useAccordion } from '../../hooks';
 
-interface AccordionItemProviderProps {
+interface AccordionItemProviderProps extends React.ComponentProps<'div'> {
   value: AccordionItemState['value'];
-  children?: React.ReactNode;
 }
 
-export const AccordionItemProvider: React.FC<AccordionItemProviderProps> = ({
-  value,
-  children,
-}) => {
+export const AccordionItemProvider = forwardRef<
+  React.ComponentRef<'div'>,
+  AccordionItemProviderProps
+>(({ value, ...props }, ref) => {
   const accordionState = useAccordion();
 
   const open = accordionState.value.some((accordionStateValue) => accordionStateValue === value);
@@ -20,6 +19,11 @@ export const AccordionItemProvider: React.FC<AccordionItemProviderProps> = ({
   const providerValue = useMemo(() => ({ value, open }), [value, open]);
 
   return (
-    <AccordionItemContext.Provider value={providerValue}>{children}</AccordionItemContext.Provider>
+    <AccordionItemContext.Provider value={providerValue}>
+      <div
+        ref={ref}
+        {...props}
+      />
+    </AccordionItemContext.Provider>
   );
-};
+});

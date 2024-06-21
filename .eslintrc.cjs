@@ -84,6 +84,7 @@ module.exports = {
         'plugin:prettier/recommended',
       ],
       rules: {
+        '@typescript-eslint/no-misused-promises': 'off',
         'import/order': 'off',
         'import/extensions': 'off',
         'import/prefer-default-export': 'off',

@@ -15,7 +15,7 @@ type TypographyVariant =
   | 'caption-base-bold'
   | 'caption-small-bold';
 
-type TypographyColor = 'primary' | 'secondary';
+type TypographyColor = 'primary' | 'secondary' | 'secondary-gray' | 'tertiary' | 'quaternary';
 
 interface TypographyProps<Component extends TypographyComponent> {
   component?: Component;

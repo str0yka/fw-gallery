@@ -19,7 +19,7 @@
   color: var(--color-text-secondary);
 }
 
-@media (width >= 768px) {
+@include media-from-tablet {
   .trigger-text {
     @include typography-h1;
   }

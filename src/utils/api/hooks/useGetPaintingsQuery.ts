@@ -11,7 +11,17 @@ export const useGetPaintingsQuery = ({
   options,
 }: UseGetPaintingsQueryParams = {}) =>
   useQuery({
-    queryKey: ['getPaintings', params?.page],
+    queryKey: [
+      'getPaintings',
+      params?.authorId,
+      params?.id,
+      params?.limit,
+      params?.locationId,
+      params?.page,
+      params?.query,
+      params?.yearsFrom,
+      params?.yearsTo,
+    ],
     ...options,
     queryFn: () => getPaintings({ params, config }),
   });

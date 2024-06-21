@@ -57,3 +57,21 @@
   line-height: 9.68px;
   text-transform: uppercase;
 }
+
+@mixin media-from-tablet {
+  @media (width >= 768px) {
+    @content;
+  }
+}
+
+@mixin media-from-tablet-portrait {
+  @media (width >= 1280px) {
+    @content;
+  }
+}
+
+@mixin media-from-desktop {
+  @media (width >= 1440px) {
+    @content;
+  }
+}

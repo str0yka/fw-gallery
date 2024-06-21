@@ -104,7 +104,7 @@
   @include typography-caption-small-bold;
 }
 
-@media (width >= 768px) {
+@include media-from-tablet {
   .card-container {
     aspect-ratio: 352 / 220;
   }
@@ -132,7 +132,7 @@
   }
 }
 
-@media (width >= 1440px) {
+@include media-from-desktop {
   .card-container {
     aspect-ratio: 392 / 260;
   }

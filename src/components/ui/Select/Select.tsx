@@ -38,7 +38,7 @@ export const Select = forwardRef<React.ComponentRef<typeof Input>, SelectProps>(
           {...props}
           ref={ref}
           endAdornment={<ExpandIcon className={clsx(s['expand-icon'], { [s.open]: state.open })} />}
-          value={state.open ? state.inputValue : state.selectedOption?.label}
+          value={state.open ? state.inputValue : state.selectedOption?.label ?? ''}
           onFocus={functions.onInputFocus}
           onChange={functions.onInputChange}
           onKeyDown={functions.onInputKeyDown}

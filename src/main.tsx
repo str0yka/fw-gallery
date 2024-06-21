@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { ReduxProvider, TanstackQueryProvider } from '~/components/providers';
@@ -14,11 +14,11 @@ import '~/static/styles/global.scss';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <TanstackQueryProvider>
       <ReduxProvider>
         <App />
       </ReduxProvider>
     </TanstackQueryProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );
