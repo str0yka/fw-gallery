@@ -37,12 +37,12 @@ export const Filter: React.FC<FilterProps> = ({ open, onClose, onSubmit }) => {
   const getAuthorsQuery = useGetAuthorsQuery();
   const getLocationsQuery = useGetLocationsQuery();
 
-  const containerRef = useOnClickOutside<HTMLElement>(onClose);
-
   const filterForm = useForm<FilterFormScheme>({
     resolver: zodResolver(filterFormScheme),
     defaultValues: FILTER_FORM_DEFAULT_VALUES,
   });
+
+  const containerRef = useOnClickOutside<HTMLElement>(onClose);
 
   return (
     <aside

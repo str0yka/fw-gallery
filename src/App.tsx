@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Container, Filter, Header, Search } from '~/components';
 import { Card, IconButton, Pagination, Typography } from '~/components/ui';
 import { FilterIcon } from '~/components/ui/icons';
 import type { GetPaintingsParams } from '~/utils/api';
 import { useGetPaintingsQuery } from '~/utils/api';
-import { useDebounce } from '~/utils/hooks';
+import { useDebounceCallback } from '~/utils/hooks';
 
 import s from './App.module.scss';
 
@@ -13,28 +13,22 @@ const LIMIT = 6;
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const [filterOptions, setFilterOptions] = useState<
-    Partial<Pick<GetPaintingsParams, 'authorId' | 'locationId' | 'yearsFrom' | 'yearsTo'>>
+    Pick<GetPaintingsParams, 'authorId' | 'locationId' | 'yearsFrom' | 'yearsTo'>
   >({});
 
-  useDebounce(
-    () => {
-      setPage(1);
-      setDebouncedQuery(query);
-    },
-    [query],
-    500,
-  );
+  const debouncedOnQueryChange = useDebounceCallback((query: string) => {
+    setCurrentPage(1);
+    setQuery(query);
+  }, 500);
 
   const getPaintingsQuery = useGetPaintingsQuery({
     params: {
+      query,
       limit: LIMIT,
-      page,
-      query: debouncedQuery,
+      page: currentPage,
       authorId: filterOptions.authorId,
       locationId: filterOptions.locationId,
       yearsFrom: filterOptions.yearsFrom,
@@ -46,9 +40,14 @@ export const App = () => {
 
   const totalCountOfPaintings = Number(getPaintingsQuery.data?.headers['x-total-count']) || 0;
 
+  const totalPages = useMemo(
+    () => Math.ceil(totalCountOfPaintings / LIMIT),
+    [totalCountOfPaintings],
+  );
+
   useEffect(() => {
-    setTotalPages(Math.ceil(Number(totalCountOfPaintings) / LIMIT));
-  }, [totalCountOfPaintings]);
+    window.scrollTo({ top: 0 });
+  }, [currentPage]);
 
   return (
     <>
@@ -56,7 +55,7 @@ export const App = () => {
         open={filterOpen}
         onClose={() => setFilterOpen(false)}
         onSubmit={(values) => {
-          setPage(1);
+          setCurrentPage(1);
           setFilterOptions(values);
         }}
       />
@@ -67,8 +66,7 @@ export const App = () => {
             <div className={s['search-container']}>
               <Search
                 placeholder="Search by painting title"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onQueryChange={debouncedOnQueryChange}
               />
             </div>
             <IconButton onClick={() => setFilterOpen((prevFilterOpen) => !prevFilterOpen)}>
@@ -102,7 +100,7 @@ export const App = () => {
                 component="span"
                 color="secondary"
               >
-                {debouncedQuery}
+                {query}
               </Typography>
             </Typography>
             <Typography
@@ -116,10 +114,10 @@ export const App = () => {
         {!!totalPages && (
           <Pagination
             className={s.pagination}
-            currentPage={page}
+            currentPage={currentPage}
             totalPages={totalPages}
             sideButtons
-            onPageChange={setPage}
+            onPageChange={setCurrentPage}
           />
         )}
       </main>
